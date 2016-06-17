@@ -64,7 +64,7 @@ def main():
                 # if we get in here list of possible Placas has at leat one Placa
 
                 # sort the list of possible Placas in DESCENDING order (most number of chars to least number of chars)
-        listaDePossiveisPlacas.sort(key = lambda PossivelPlaca: len(PossivelPlaca.strCaracteres), reverse = True)
+        listaDePossiveisPlacas.sort(key = lambda possivelPlaca: len(possivelPlaca.strCaracteres), reverse = True)
 
                 # suppose the Placa with the most recognized chars (the first Placa in sorted by string length descending order) is the actual Placa
         licPlaca = listaDePossiveisPlacas[0]

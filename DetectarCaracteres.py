@@ -134,7 +134,7 @@ def DetectarCaracteresNasPlacas(listaDePossiveisPlacas):
                 contornos.append(possivelCaractere.contour)
             # end for
 
-            cv2.drawContours(imgContours, contornos, -1, Main.SCALAR_WHITE)
+            cv2.drawContours(imgContours, contornos, -1, Main.ESCALA_BRANCO)
 
             cv2.imshow("6", imgContours)
         # end if # show steps #####################################################################
@@ -222,7 +222,7 @@ def DetectarCaracteresNasPlacas(listaDePossiveisPlacas):
                 contornos.append(matchingCaractere.contour)
             # end for
 
-            cv2.drawContours(imgContours, contornos, -1, Main.SCALAR_WHITE)
+            cv2.drawContours(imgContours, contornos, -1, Main.ESCALA_BRANCO)
 
             cv2.imshow("9", imgContours)
         # end if # show steps #####################################################################
@@ -461,7 +461,7 @@ def recognizeCaracteresInPlaca(imgThreshold, listaDeCombinacaoDeCaracteres):
         pt1 = (caractereAtual.intBoundingRectX, caractereAtual.intBoundingRectY)
         pt2 = ((caractereAtual.intBoundingRectX + caractereAtual.intBoundingRectWidth), (caractereAtual.intBoundingRectY + caractereAtual.intBoundingRectHeight))
 
-        cv2.rectangle(imgThresholdColor, pt1, pt2, Main.SCALAR_GREEN, 2)           
+        cv2.rectangle(imgThresholdColor, pt1, pt2, Main.ESCALA_VERDE, 2)           
         # draw green box around the char
 
                 # crop char out of threshold image

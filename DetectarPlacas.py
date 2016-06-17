@@ -53,7 +53,7 @@ def DetectarPlacasInScene(imgCenaOriginal):
             contornos.append(possivelCaractere.contour)
         # end for
 
-        cv2.drawContours(imgContours, contornos, -1, Main.SCALAR_WHITE)
+        cv2.drawContours(imgContours, contornos, -1, Main.ESCALA_BRANCO)
         cv2.imshow("2b", imgContours)
     # end if # show steps #########################################################################
 
@@ -100,10 +100,10 @@ def DetectarPlacasInScene(imgCenaOriginal):
         for i in range(0, len(listaDePossiveisPlacas)):
             p2fRectPoints = cv2.boxPoints(listaDePossiveisPlacas[i].rrLocationOfPlacaInScene)
 
-            cv2.line(imgContours, tuple(p2fRectPoints[0]), tuple(p2fRectPoints[1]), Main.SCALAR_RED, 2)
-            cv2.line(imgContours, tuple(p2fRectPoints[1]), tuple(p2fRectPoints[2]), Main.SCALAR_RED, 2)
-            cv2.line(imgContours, tuple(p2fRectPoints[2]), tuple(p2fRectPoints[3]), Main.SCALAR_RED, 2)
-            cv2.line(imgContours, tuple(p2fRectPoints[3]), tuple(p2fRectPoints[0]), Main.SCALAR_RED, 2)
+            cv2.line(imgContours, tuple(p2fRectPoints[0]), tuple(p2fRectPoints[1]), Main.ESCALA_VERMELHO, 2)
+            cv2.line(imgContours, tuple(p2fRectPoints[1]), tuple(p2fRectPoints[2]), Main.ESCALA_VERMELHO, 2)
+            cv2.line(imgContours, tuple(p2fRectPoints[2]), tuple(p2fRectPoints[3]), Main.ESCALA_VERMELHO, 2)
+            cv2.line(imgContours, tuple(p2fRectPoints[3]), tuple(p2fRectPoints[0]), Main.ESCALA_VERMELHO, 2)
 
             cv2.imshow("4a", imgContours)
 
@@ -136,7 +136,7 @@ def findPossibleCaracteresInScene(imgThreshold):
     for i in range(0, len(contornos)):                       # for each contour
 
         if Main.mostrarPassos == True: # show steps ###################################################
-            cv2.drawContours(imgContours, contornos, i, Main.SCALAR_WHITE)
+            cv2.drawContours(imgContours, contornos, i, Main.ESCALA_BRANCO)
         # end if # show steps #####################################################################
 
         possivelCaractere = PossibleCaractere.PossibleCaractere(contornos[i])
