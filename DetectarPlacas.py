@@ -8,7 +8,7 @@ import random
 
 import Preprocesso
 import DetectarCaracteres
-import PossivelPlaca
+import possivelPlaca
 import PossivelCaractere
 
 # module level variables ##########################################################################
@@ -84,10 +84,10 @@ def DetectarPlacasInScene(imgCenaOriginal):
     # end if # show steps #########################################################################
 
     for listaDeCombinacaoDeCaracteres in listaDeListasDeCombinacaoDeCaracteresInScene:                   # for each group of matching chars
-        PossivelPlaca = extractPlaca(imgCenaOriginal, listaDeCombinacaoDeCaracteres)         # attempt to extract Placa
+        possivelPlaca = extrairPlaca(imgCenaOriginal, listaDeCombinacaoDeCaracteres)         # attempt to extract Placa
 
-        if PossivelPlaca.imgPlaca is not None:                          # if Placa was found
-            listaDePossiveisPlacas.append(PossivelPlaca)                  # add to list of possible Placas
+        if possivelPlaca.imgPlaca is not None:                          # if Placa was found
+            listaDePossiveisPlacas.append(possivelPlaca)                  # add to list of possible Placas
         # end if
     # end for
 
@@ -158,8 +158,8 @@ def findPossibleCaracteresInScene(imgThreshold):
 
 
 ###################################################################################################
-def extractPlaca(imgOriginal, listaDeCombinacaoDeCaracteres):
-    PossivelPlaca = PossivelPlaca.PossivelPlaca()           # this will be the return value
+def extrairPlaca(imgOriginal, listaDeCombinacaoDeCaracteres):
+    possivelPlaca = PossivelPlaca.PossivelPlaca()           # this will be the return value
 
     listaDeCombinacaoDeCaracteres.sort(key = lambda matchingCaractere: matchingCaractere.intCenterX)        # sort chars from left to right based on x position
 
@@ -189,7 +189,7 @@ def extractPlaca(imgOriginal, listaDeCombinacaoDeCaracteres):
     fltCorrectionAngleInDeg = fltCorrectionAngleInRad * (180.0 / math.pi)
 
             # pack Placa region center point, largura and altura, and correction angle into rotated rect member variable of Placa
-    PossivelPlaca.rrLocationOfPlacaInScene = ( tuple(ptPlacaCenter), (intPlacaWidth, intPlacaHeight), fltCorrectionAngleInDeg )
+    possivelPlaca.rrLocationOfPlacaInScene = ( tuple(ptPlacaCenter), (intPlacaWidth, intPlacaHeight), fltCorrectionAngleInDeg )
 
             # final steps are to perform the actual rotation
 
@@ -202,9 +202,9 @@ def extractPlaca(imgOriginal, listaDeCombinacaoDeCaracteres):
 
     imgCropped = cv2.getRectSubPix(imgRotated, (intPlacaWidth, intPlacaHeight), tuple(ptPlacaCenter))
 
-    PossivelPlaca.imgPlaca = imgCropped         # copy the cropped Placa image into the applicable member variable of the possible Placa
+    possivelPlaca.imgPlaca = imgCropped         # copy the cropped Placa image into the applicable member variable of the possible Placa
 
-    return PossivelPlaca
+    return possivelPlaca
 # end function
 
 
