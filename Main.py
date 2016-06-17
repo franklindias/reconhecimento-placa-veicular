@@ -1,5 +1,5 @@
 # Main.py
-
+# -*- coding: utf-8 -*-
 import cv2
 import numpy as np
 import os
@@ -8,175 +8,181 @@ import DetectarCaracteres
 import DetectarPlacas
 import PossivelPlaca
 
-# module level variables ##########################################################################
+# variáveis de nível de módulo ##########################################################################
 ESCALA_PRETO = (0.0, 0.0, 0.0)
 ESCALA_BRANCO = (255.0, 255.0, 255.0)
 ESCALA_AMARELO = (0.0, 255.0, 255.0)
 ESCALA_VERDE = (0.0, 255.0, 0.0)
 ESCALA_VERMELHO = (0.0, 0.0, 255.0)
 
-
 mostrarPassos = False
 
 
 ###################################################################################################
 def main():
+    blnKNNTrainingSuccessful = DetectarCaracteres.loadKNNDataAndTrainKNN()
+    # tentativa KNN(o vizinho mais proximo, algoritmo) training
 
-    blnKNNTrainingSuccessful = DetectarCaracteres.loadKNNDataAndTrainKNN()         
-    # attempt KNN training
-
-    if blnKNNTrainingSuccessful == False:                               
-    # if KNN training was not successful
-        print ("\nerror: KNN traning was not successful\n")               
-        # show error message
-        return                                                          
-        # and exit program
+    if blnKNNTrainingSuccessful == False:
+        # se KNN(o vizinho mais proximo, algoritmo) training não foi bem sucedida
+        print ("\nerror: KNN traning was not successful\n")
+        # mostrar mensagem de erro
+        return
+        # e fechar programa
     # end if
 
-    imgCenaOriginal  = cv2.imread("imagens/1.png")               
-    # open image
+    imgCenaOriginal = cv2.imread("imagens/f15.jpg")
+    # abrir imagem
 
-    if imgCenaOriginal is None:                            
-    # if image was not read successfully
-        print ("\nErro: Imagem nao lida do arquivo \n\n")      
-        # print error message to std out
-        os.system("pause")                                  
-        # pause so user can see error message
-        return                                              
-        # and exit program
+    if imgCenaOriginal is None:
+        # se a imagem não foi lida com sucesso
+        print ("\nErro: Arquivo de imagem não lido\n\n")
+        # exibir mensagem de erro de impressão
+        os.system("pause")
+        # pausar assim que o usuário puder ver a mensagem de erro
+        return
+        # e fechar programa
     # end if
 
-    listaDePossiveisPlacas = DetectarPlacas.DetectarPlacasInScene(imgCenaOriginal)           
-    # detect Placas
+    listaDePossiveisPlacas = DetectarPlacas.DetectarPlacasInScene(imgCenaOriginal)
+    # detectar Placas
 
-    listaDePossiveisPlacas = DetectarCaracteres.DetectarCaracteresNasPlacas(listaDePossiveisPlacas)        
-    # detect chars in Placas
+    listaDePossiveisPlacas = DetectarCaracteres.DetectarCaracteresNasPlacas(listaDePossiveisPlacas)
+    # detectar caracteres nas Placas
 
-    cv2.imshow("imgCenaOriginal", imgCenaOriginal)            
-    # show scene image
+    cv2.imshow("imgCenaOriginal", imgCenaOriginal)
+    # exibir imagem que foi escolhida cv2.imread("imagens/f15.jpg")
 
-    if len(listaDePossiveisPlacas) == 0:                          
-    # if no Placas were found
-        print ("\nNenhuma placa foi encontrada\n")            
-        # inform user no Placas were found
-    else:                                                       
-    # else
-                
-                # if we get in here list of possible Placas has at leat one Placa
+    if len(listaDePossiveisPlacas) == 0:
+        # se não foram encontradas Placas
+        print ("\nNenhuma placa foi encontrada\n")
+        # informar ao usuário que a placa não foi encontrada
+    else:
+        # else
 
-                # sort the list of possible Placas in DESCENDING order (most number of chars to least number of chars)
-        listaDePossiveisPlacas.sort(key = lambda possivelPlaca: len(possivelPlaca.strCaracteres), reverse = True)
+        # Se entrar aqui lista de possíveis Placas tem pelo menos uma Placa
 
-                # suppose the Placa with the most recognized chars (the first Placa in sorted by string length descending order) is the actual Placa
+        # Classificar a lista de possíveis Placas em ordem decrescente (maior número de caracteres para o menos número de caracteres)
+        listaDePossiveisPlacas.sort(key=lambda possivelPlaca: len(possivelPlaca.strCaracteres), reverse=True)
+
+        # Suponha que o local com os caracteres mais reconhecidos é a placa real
         licPlaca = listaDePossiveisPlacas[0]
 
-        cv2.imshow("imgPlaca", licPlaca.imgPlaca)           
-        # show crop of Placa and threshold of Placa
+        cv2.imshow("imgPlaca", licPlaca.imgPlaca)
+        # mostrar corte do lugar e limite de Placa
         cv2.imshow("imgThreshold", licPlaca.imgThreshold)
 
-        if len(licPlaca.strCaracteres) == 0:                    
-        # if no chars were found in the Placa
-            print ("\nNenhum caractere foi encontrado\n\n")       
-            # show message
-            return                                          
-            # and exit program
+        if len(licPlaca.strCaracteres) == 0:
+            # Se nenhum caractere foi encontrado na Placa
+            print ("\nNenhum caractere foi encontrado\n\n")
+            # mostrar mensagem
+            return
+            # e fechar programa
         # end if
 
-        desenharRetanguloVermelhoAoRedorDaPlaca(imgCenaOriginal, licPlaca)            
-        # draw red rectangle around Placa
+        desenharRetanguloVermelhoAoRedorDaPlaca(imgCenaOriginal, licPlaca)
+        # desenhar um retângulo vermelho em torno de Placa
 
-        print ("\nPlca lida da imagem = " + licPlaca.strCaracteres + "\n")       
-        # write license Placa text to std out
+        print ("\nPlaca lida da imagem = " + licPlaca.strCaracteres + "\n")
+        # escrever o texto da placa para std out
         print ("----------------------------------------")
 
-        escreverCaracteresDaPlacaNaImagem(imgCenaOriginal, licPlaca)           
-        # write license Placa text on the image
+        escreverCaracteresDaPlacaNaImagem(imgCenaOriginal, licPlaca)
+        # escrever o texto da placa na imagem
 
-        cv2.imshow("imgCenaOriginal", imgCenaOriginal)                
-        # re-show scene image
+        cv2.imshow("imgCenaOriginal", imgCenaOriginal)
+        #exibir de novo a imagem, só que alterada. com as inserções
 
-        cv2.imwrite("imgCenaOriginal.png", imgCenaOriginal)           
-        # write image out to file
+        cv2.imwrite("imgCenaOriginal.png", imgCenaOriginal)
+        # gravar essa imagem alterada para o arquivo
 
     # end if else
 
-    cv2.waitKey(0)					
-    # hold windows open until user presses a key
+    cv2.waitKey(0)
+    # mantenha as janelas abertas até que o usuário pressiona uma tecla
 
     return
+
+
 # end main
 
 ###################################################################################################
 def desenharRetanguloVermelhoAoRedorDaPlaca(imgCenaOriginal, licPlaca):
+    p2fRectPoints = cv2.boxPoints(licPlaca.rrLocationOfPlacaInScene)
+    # obter 4 vértices do retângulo girado
 
-    p2fRectPoints = cv2.boxPoints(licPlaca.rrLocationOfPlacaInScene)            
-    # get 4 vertices of rotated rect
-
-    cv2.line(imgCenaOriginal, tuple(p2fRectPoints[0]), tuple(p2fRectPoints[1]), ESCALA_VERMELHO, 2)         
-    # draw 4 red lines
+    cv2.line(imgCenaOriginal, tuple(p2fRectPoints[0]), tuple(p2fRectPoints[1]), ESCALA_VERMELHO, 2)
+    # desenhar 4 linhas vermelhas
     cv2.line(imgCenaOriginal, tuple(p2fRectPoints[1]), tuple(p2fRectPoints[2]), ESCALA_VERMELHO, 2)
     cv2.line(imgCenaOriginal, tuple(p2fRectPoints[2]), tuple(p2fRectPoints[3]), ESCALA_VERMELHO, 2)
     cv2.line(imgCenaOriginal, tuple(p2fRectPoints[3]), tuple(p2fRectPoints[0]), ESCALA_VERMELHO, 2)
+
+
 # end function
 
 ###################################################################################################
 def escreverCaracteresDaPlacaNaImagem(imgCenaOriginal, licPlaca):
-    ptCenterOfTextAreaX = 0                             
-    # this will be the center of the area the text will be written to
+    ptCenterOfTextAreaX = 0
+    # este será o centro da área o texto será escrito para
     ptCenterOfTextAreaY = 0
 
-    ptLowerLeftTextOriginX = 0                          
-    # this will be the bottom left of the area that the text will be written to
+    ptLowerLeftTextOriginX = 0
+    # este será o canto inferior esquerdo da área que o texto será escrito para
     ptLowerLeftTextOriginY = 0
 
     sceneHeight, sceneWidth, sceneNumChannels = imgCenaOriginal.shape
     PlacaHeight, PlacaWidth, PlacaNumChannels = licPlaca.imgPlaca.shape
 
-    intFontFace = cv2.FONT_HERSHEY_SIMPLEX                      
-    # choose a plain jane font
-    fltFontScale = float(PlacaHeight) / 30.0                    
-    # base font scale on altura of Placa area
-    intFontThickness = int(round(fltFontScale * 1.5))           
-    # base font thickness on font scale
+    intFontFace = cv2.FONT_HERSHEY_SIMPLEX
+    # escolher uma fonte para os caracteres
+    fltFontScale = float(PlacaHeight) / 30.0
+    # escala fonte base na altura da área da placa
+    intFontThickness = int(round(fltFontScale * 1.5))
+    # espessura da fonte base na escala de fonte
 
-    textSize, baseline = cv2.getTextSize(licPlaca.strCaracteres, intFontFace, fltFontScale, intFontThickness)        
-    # call getTextSize
+    textSize, baseline = cv2.getTextSize(licPlaca.strCaracteres, intFontFace, fltFontScale, intFontThickness)
+    # chamar setTextSize
 
-            # unpack roatated rect into center point, largura and altura, and angle
-    ( (intPlacaCenterX, intPlacaCenterY), (intPlacaWidth, intPlacaHeight), fltCorrectionAngleInDeg ) = licPlaca.rrLocationOfPlacaInScene
+    # descompactar retângulo girado em ponto central, Largura e altura e ângulo
+    ((intPlacaCenterX, intPlacaCenterY), (intPlacaWidth, intPlacaHeight),
+     fltCorrectionAngleInDeg) = licPlaca.rrLocationOfPlacaInScene
 
-    intPlacaCenterX = int(intPlacaCenterX)              
-    # make sure center is an integer
+    intPlacaCenterX = int(intPlacaCenterX)
+    # certifique-se o centro é um inteiro
     intPlacaCenterY = int(intPlacaCenterY)
 
-    ptCenterOfTextAreaX = int(intPlacaCenterX)         
-    # the horizontal location of the text area is the same as the Placa
+    ptCenterOfTextAreaX = int(intPlacaCenterX)
+    # a localização horizontal da área de texto é o mesmo que a Placa
 
-    if intPlacaCenterY < (sceneHeight * 0.75):                                                  
-    # if the license Placa is in the upper 3/4 of the image
-        ptCenterOfTextAreaY = int(round(intPlacaCenterY)) + int(round(PlacaHeight * 1.6))      
-        # write the chars in below the Placa
-    else:                                                                                       
-    # else if the license Placa is in the lower 1/4 of the image
-        ptCenterOfTextAreaY = int(round(intPlacaCenterY)) - int(round(PlacaHeight * 1.6))      
-        # write the chars in above the Placa
+    if intPlacaCenterY < (sceneHeight * 0.75):
+        # se a placa é na parte superior 3/4(tambem conhecido como 0,75) da imagem
+        ptCenterOfTextAreaY = int(round(intPlacaCenterY)) + int(round(PlacaHeight * 1.6))
+        # escrever os caracteres em baixo da Placa
+    else:
+        # senão se a placa é na parte inferior 1/4(tambem conhecido como 0,25) da imagem
+        ptCenterOfTextAreaY = int(round(intPlacaCenterY)) - int(round(PlacaHeight * 1.6))
+        # escrever os caracteres em cima da Placa
     # end if
 
-    textSizeWidth, textSizeHeight = textSize                
-    # unpack text size largura and altura
+    textSizeWidth, textSizeHeight = textSize
+    # tamanho do texto descompactar Largura e altura
 
-    ptLowerLeftTextOriginX = int(ptCenterOfTextAreaX - (textSizeWidth / 2))           
-    # calculate the lower left origin of the text area
-    ptLowerLeftTextOriginY = int(ptCenterOfTextAreaY + (textSizeHeight / 2))          
-    # based on the text area center, largura, and altura
+    ptLowerLeftTextOriginX = int(ptCenterOfTextAreaX - (textSizeWidth / 2))
+    # calcular a origem inferior esquerda da área de texto
+    ptLowerLeftTextOriginY = int(ptCenterOfTextAreaY + (textSizeHeight / 2))
+    # com base no centro textarea, Largura, e Altura
 
-            # write the text on the image
-    cv2.putText(imgCenaOriginal, licPlaca.strCaracteres, (ptLowerLeftTextOriginX, ptLowerLeftTextOriginY), intFontFace, fltFontScale, ESCALA_AMARELO, intFontThickness)
+    # escreva o texto na imagem
+    cv2.putText(imgCenaOriginal, licPlaca.strCaracteres, (ptLowerLeftTextOriginX, ptLowerLeftTextOriginY), intFontFace,
+                fltFontScale, ESCALA_AMARELO, intFontThickness)
+
+
 # end function
 
 ###################################################################################################
 if __name__ == "__main__":
     main()
+
 
 
 
