@@ -8,7 +8,7 @@ import random
 
 import Preprocesso
 import DetectarCaracteres
-import possivelPlaca
+import PossivelPlaca
 import PossivelCaractere
 
 # module level variables ##########################################################################
