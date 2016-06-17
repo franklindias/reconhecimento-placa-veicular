@@ -6,7 +6,7 @@ import numpy as np
 ###################################################################################################
 class PossivelPlaca:
 
-    # constructor #################################################################################
+    # construtor #################################################################################
     def __init__(self):
         self.imgPlaca = None
         self.imgEscalaDeCinza = None
@@ -15,9 +15,11 @@ class PossivelPlaca:
         self.rrLocationOfPlacaInScene = None
 
         self.strCaracteres = ""
-    # end constructor
+    # end construtor
 
 # end class
+
+
 
 
 
