@@ -1,5 +1,5 @@
 # Preprocesso.py
-
+# -*- coding: utf-8 -*-
 import cv2
 import numpy as np
 import math
@@ -57,6 +57,16 @@ def maximizeContrast(imgEscalaDeCinza):
 
     return imgEscalaDeCinzaPlusTopHatMinusBlackHat
 # end function
+
+
+
+
+
+
+
+
+
+
 
 
 
