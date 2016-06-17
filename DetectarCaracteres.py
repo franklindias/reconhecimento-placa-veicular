@@ -256,7 +256,7 @@ def encontrarPossivelCaractereNaPlaca(imgEscalaDeCinza, imgThreshold):
     imgContours, contornos, npaHierarchy = cv2.findContours(imgThresholdCopia, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
 
     for contour in contornos:                        # for each contour
-        possivelCaractere = PossibleCaractere.PossibleCaractere(contour)
+        possivelCaractere = PossivelCaractere.PossivelCaractere(contour)
 
         if verificaSePossivelCaractere(possivelCaractere):              # if contour is a possible char, note this does not compare to other chars (yet) . . .
             listaDePossiveisCaracteres.append(possivelCaractere)       # add to list of possible chars

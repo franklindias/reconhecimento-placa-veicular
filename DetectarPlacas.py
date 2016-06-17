@@ -40,7 +40,7 @@ def DetectarPlacasInScene(imgCenaOriginal):
 
             # find all possible chars in the scene,
             # this function first finds all contornos, then only includes contornos that could be chars (without comparison to other chars yet)
-    listaDePossiveisCaracteresInScene = findPossibleCaracteresInScene(imgThresholdScene)
+    listaDePossiveisCaracteresInScene = findPossivelCaracteresInScene(imgThresholdScene)
 
     if Main.mostrarPassos == True: # show steps #######################################################
         print ("step 2 - len(listaDePossiveisCaracteresInScene) = " + str(len(listaDePossiveisCaracteresInScene)))         # 131 with MCLRNF1 image
@@ -121,10 +121,10 @@ def DetectarPlacasInScene(imgCenaOriginal):
 # end function
 
 ###################################################################################################
-def findPossibleCaracteresInScene(imgThreshold):
+def findPossivelCaracteresInScene(imgThreshold):
     listaDePossiveisCaracteres = []                # this will be the return value
 
-    intCountOfPossibleCaracteres = 0
+    intCountOfPossivelCaracteres = 0
 
     imgThresholdCopia = imgThreshold.copy()
 
@@ -139,17 +139,17 @@ def findPossibleCaracteresInScene(imgThreshold):
             cv2.drawContours(imgContours, contornos, i, Main.ESCALA_BRANCO)
         # end if # show steps #####################################################################
 
-        possivelCaractere = PossibleCaractere.PossibleCaractere(contornos[i])
+        possivelCaractere = PossivelCaractere.PossivelCaractere(contornos[i])
 
         if DetectarCaracteres.verificaSePossivelCaractere(possivelCaractere):                   # if contour is a possible char, note this does not compare to other chars (yet) . . .
-            intCountOfPossibleCaracteres = intCountOfPossibleCaracteres + 1           # increment count of possible chars
+            intCountOfPossivelCaracteres = intCountOfPossivelCaracteres + 1           # increment count of possible chars
             listaDePossiveisCaracteres.append(possivelCaractere)                        # and add to list of possible chars
         # end if
     # end for
 
     if Main.mostrarPassos == True: # show steps #######################################################
         print ("\nstep 2 - len(contornos) = " + str(len(contornos)))                       # 2362 with MCLRNF1 image
-        print ("step 2 - intCountOfPossibleCaracteres = " + str(intCountOfPossibleCaracteres))       # 131 with MCLRNF1 image
+        print ("step 2 - intCountOfPossivelCaracteres = " + str(intCountOfPossivelCaracteres))       # 131 with MCLRNF1 image
         cv2.imshow("2a", imgContours)
     # end if # show steps #########################################################################
 
