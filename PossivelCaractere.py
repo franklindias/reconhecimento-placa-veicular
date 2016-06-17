@@ -1,11 +1,11 @@
-# PossibleChar.py
+# PossibleCaractere.py
 
 import cv2
 import numpy as np
 import math
 
 ###################################################################################################
-class PossibleChar:
+class PossibleCaractere:
 
     # constructor #################################################################################
     def __init__(self, _contour):

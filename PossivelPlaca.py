@@ -1,20 +1,20 @@
-# PossiblePlate.py
+# PossivelPlaca.py
 
 import cv2
 import numpy as np
 
 ###################################################################################################
-class PossiblePlate:
+class PossivelPlaca:
 
     # constructor #################################################################################
     def __init__(self):
-        self.imgPlate = None
-        self.imgGrayscale = None
-        self.imgThresh = None
+        self.imgPlaca = None
+        self.imgEscalaDeCinza = None
+        self.imgThreshold = None
 
-        self.rrLocationOfPlateInScene = None
+        self.rrLocationOfPlacaInScene = None
 
-        self.strChars = ""
+        self.strCaracteres = ""
     # end constructor
 
 # end class
