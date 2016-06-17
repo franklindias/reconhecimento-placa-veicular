@@ -1,5 +1,5 @@
 # PossivelCaractere.py
-
+# -*- coding: utf-8 -*-
 import cv2
 import numpy as np
 import math
@@ -31,6 +31,7 @@ class PossivelCaractere:
     # end construtor
 
 # end class
+
 
 
 
