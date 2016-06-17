@@ -1,0 +1,39 @@
+original
+2 class
+possibles plate
+possibles char
+find plates - title
+
+pre process()
+---img grays scale scene , thresh scene
+find possible chars in scene
+---list of possible chars in scene()
+find list of lists of matchings chars
+---list of lists of matchings chars in scene
+extract plate()
+---list possible plates
+
+find chars within plates - title 2
+image thresh
+2 class
+placa possíveis
+possíveis de char
+encontrar placas - título
+
+tradução
+pré processo ()
+--- Img cinzas cena escala, cena limiar
+encontrar possíveis caracteres em cena
+--- Lista de possíveis caracteres na cena ()
+encontrar uma lista de listas de coincidências caracteres
+--- Lista de listas de coincidências caracteres em cena
+extrair placa ()
+--- lista Possíveis placas
+
+encontrar caracteres dentro de placas - título 2
+thresh imagem
+
+
+
+diagrama 
+https://raw.githubusercontent.com/MicrocontrollersAndMore/OpenCV_3_License_Plate_Recognition_Python/master/DocsAndPresentation/steps.png
