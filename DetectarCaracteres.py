@@ -99,34 +99,34 @@ def DetectarCaracteresNasPlacas(listaDePossiveisPlacas):
             
     # at this point we can be sure the list of possible Placas has at least one Placa
 
-    for PossivelPlaca in listaDePossiveisPlacas:         
+    for possivelPlaca in listaDePossiveisPlacas:         
     # for each possible Placa, this is a big for loop that takes up most of the function
 
-        PossivelPlaca.imgEscalaDeCinza, PossivelPlaca.imgThreshold = Preprocesso.Preprocesso(PossivelPlaca.imgPlaca)     
+        possivelPlaca.imgEscalaDeCinza, possivelPlaca.imgThreshold = Preprocesso.Preprocesso(possivelPlaca.imgPlaca)     
         # Preprocesso to get grayscale and threshold images
 
         if Main.mostrarPassos == True: # show steps ###################################################
-            cv2.imshow("5a", PossivelPlaca.imgPlaca)
-            cv2.imshow("5b", PossivelPlaca.imgEscalaDeCinza)
-            cv2.imshow("5c", PossivelPlaca.imgThreshold)
+            cv2.imshow("5a", possivelPlaca.imgPlaca)
+            cv2.imshow("5b", possivelPlaca.imgEscalaDeCinza)
+            cv2.imshow("5c", possivelPlaca.imgThreshold)
         # end if # show steps #####################################################################
 
                 # increase size of Placa image for easier viewing and char detection
-        PossivelPlaca.imgThreshold = cv2.resize(PossivelPlaca.imgThreshold, (0, 0), fx = 1.6, fy = 1.6)
+        possivelPlaca.imgThreshold = cv2.resize(possivelPlaca.imgThreshold, (0, 0), fx = 1.6, fy = 1.6)
 
                 # threshold again to eliminate any gray areas
-        thresholdValue, PossivelPlaca.imgThreshold = cv2.threshold(PossivelPlaca.imgThreshold, 0.0, 255.0, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
+        thresholdValue, possivelPlaca.imgThreshold = cv2.threshold(possivelPlaca.imgThreshold, 0.0, 255.0, cv2.THRESH_BINARY | cv2.THRESH_OTSU)
 
         if Main.mostrarPassos == True: # show steps ###################################################
-            cv2.imshow("5d", PossivelPlaca.imgThreshold)
+            cv2.imshow("5d", possivelPlaca.imgThreshold)
         # end if # show steps #####################################################################
 
                 # find all possible chars in the Placa,
                 # this function first finds all contornos, then only includes contornos that could be chars (without comparison to other chars yet)
-        listaDePossiveisCaracteresInPlaca = encontrarPossivelCaractereNaPlaca(PossivelPlaca.imgEscalaDeCinza, PossivelPlaca.imgThreshold)
+        listaDePossiveisCaracteresInPlaca = encontrarPossivelCaractereNaPlaca(possivelPlaca.imgEscalaDeCinza, possivelPlaca.imgThreshold)
 
         if Main.mostrarPassos == True: # show steps ###################################################
-            altura, largura, numCanais = PossivelPlaca.imgPlaca.shape
+            altura, largura, numCanais = possivelPlaca.imgPlaca.shape
             imgContours = np.zeros((altura, largura, 3), np.uint8)
             del contornos[:]                                         # clear the contornos list
 
@@ -170,7 +170,7 @@ def DetectarCaracteresNasPlacas(listaDePossiveisPlacas):
                 cv2.waitKey(0)
             # end if # show steps #################################################################
 
-            PossivelPlaca.strCaracteres = ""
+            possivelPlaca.strCaracteres = ""
             continue						# go back to top of for loop
         # end if
 
@@ -227,11 +227,11 @@ def DetectarCaracteresNasPlacas(listaDePossiveisPlacas):
             cv2.imshow("9", imgContours)
         # end if # show steps #####################################################################
 
-        PossivelPlaca.strCaracteres = recognizeCaracteresInPlaca(PossivelPlaca.imgThreshold, 
+        possivelPlaca.strCaracteres = recognizeCaracteresInPlaca(possivelPlaca.imgThreshold, 
     maiorListaDeCaracteresCorrespondentesNaPlaca)
 
         if Main.mostrarPassos == True: # show steps ###################################################
-            print ("Caracteres encontrados no numero da placa " + str(intPlacaCounter) + " = " + PossivelPlaca.strCaracteres + ", click on any image and press a key to continue . . .")
+            print ("Caracteres encontrados no numero da placa " + str(intPlacaCounter) + " = " + possivelPlaca.strCaracteres + ", click on any image and press a key to continue . . .")
             intPlacaCounter = intPlacaCounter + 1
             cv2.waitKey(0)
         # end if # show steps #####################################################################
