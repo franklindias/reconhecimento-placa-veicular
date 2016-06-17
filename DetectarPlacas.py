@@ -9,7 +9,7 @@ import random
 import Preprocesso
 import DetectarCaracteres
 import PossivelPlaca
-import PossibleCaractere
+import PossivelCaractere
 
 # module level variables ##########################################################################
 PLACA_LARGURA_FATOR_PREENCHIMENTO = 1.3

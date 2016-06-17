@@ -37,7 +37,7 @@ def main():
 
     if imgCenaOriginal is None:                            
     # if image was not read successfully
-        print ("\nErro: Imagem não lida do arquivo \n\n")      
+        print ("\nErro: Imagem nao lida do arquivo \n\n")      
         # print error message to std out
         os.system("pause")                                  
         # pause so user can see error message

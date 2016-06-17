@@ -7,13 +7,13 @@ import random
 
 import Main
 import Preprocesso
-import PossibleCaractere
+import PossivelCaractere
 
 # module level variables ##########################################################################
 
 kNearest = cv2.ml.KNearest_create()
 
-# constants for verificaSePossivelCaractere, esta verifica apenas um caractere possível (não compara a outro caractere)
+# constants for verificaSePossivelCaractere, esta verifica apenas um caractere possivel (nao compara a outro caractere)
 MIN_PIXEL_LARGURA = 2
 MIN_PIXEL_ALTURA = 8
 
@@ -212,14 +212,13 @@ def DetectarCaracteresNasPlacas(listaDePossiveisPlacas):
 
                 # suppose that the longest list of matching chars within the Placa is the actual list of chars
         
-maiorListaDeCaracteresCorrespondentesNaPlaca = listaDeListasDeCombinacaoDeCaracteresInPlaca[intIndexOfLongestListOfCaracteres]
+        maiorListaDeCaracteresCorrespondentesNaPlaca = listaDeListasDeCombinacaoDeCaracteresInPlaca[intIndexOfLongestListOfCaracteres]
 
         if Main.mostrarPassos == True: # show steps ###################################################
             imgContours = np.zeros((altura, largura, 3), np.uint8)
             del contornos[:]
 
-            for matchingCaractere in 
-maiorListaDeCaracteresCorrespondentesNaPlaca:
+            for matchingCaractere in maiorListaDeCaracteresCorrespondentesNaPlaca:
                 contornos.append(matchingCaractere.contour)
             # end for
 
@@ -229,10 +228,10 @@ maiorListaDeCaracteresCorrespondentesNaPlaca:
         # end if # show steps #####################################################################
 
         PossivelPlaca.strCaracteres = recognizeCaracteresInPlaca(PossivelPlaca.imgThreshold, 
-maiorListaDeCaracteresCorrespondentesNaPlaca)
+    maiorListaDeCaracteresCorrespondentesNaPlaca)
 
         if Main.mostrarPassos == True: # show steps ###################################################
-            print ("Caracteres encontrados no número da placa " + str(intPlacaCounter) + " = " + PossivelPlaca.strCaracteres + ", click on any image and press a key to continue . . .")
+            print ("Caracteres encontrados no numero da placa " + str(intPlacaCounter) + " = " + PossivelPlaca.strCaracteres + ", click on any image and press a key to continue . . .")
             intPlacaCounter = intPlacaCounter + 1
             cv2.waitKey(0)
         # end if # show steps #####################################################################
@@ -240,7 +239,7 @@ maiorListaDeCaracteresCorrespondentesNaPlaca)
     # end of big for loop that takes up most of the function
 
     if Main.mostrarPassos == True:
-        print ("\nDetecção de caracteres completa, clique em qualquer imagem e pressione uma tecla para continuar . . .\n")
+        print ("\nDeteccaoo de caracteres completa, clique em qualquer imagem e pressione uma tecla para continuar . . .\n")
         cv2.waitKey(0)
     # end if
 
