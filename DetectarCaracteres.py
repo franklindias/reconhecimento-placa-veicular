@@ -543,4 +543,3 @@ def recognizeCaracteresInPlaca(imgThreshold, listaDeCombinacaoDeCaracteres):
 
 
 
-
