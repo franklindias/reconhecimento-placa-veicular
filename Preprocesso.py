@@ -4,7 +4,7 @@ import cv2
 import numpy as np
 import math
 
-# module level variables ##########################################################################
+# variáveis de nível de módulo ##########################################################################
 GAUSSIAN_SMOOTH_FILTER_SIZE = (5, 5)
 ADAPTIVE_THRESH_BLOCK_SIZE = 19
 ADAPTIVE_THRESH_WEIGHT = 9
@@ -57,7 +57,6 @@ def maximizeContrast(imgEscalaDeCinza):
 
     return imgEscalaDeCinzaPlusTopHatMinusBlackHat
 # end function
-
 
 
 
