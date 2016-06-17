@@ -7,7 +7,7 @@ import math
 ###################################################################################################
 class PossivelCaractere:
 
-    # constructor #################################################################################
+    # construtor #################################################################################
     def __init__(self, _contour):
         self.contour = _contour
 
@@ -28,9 +28,18 @@ class PossivelCaractere:
         self.fltDiagonalSize = math.sqrt((self.intBoundingRectWidth ** 2) + (self.intBoundingRectHeight ** 2))
 
         self.fltAspectRatio = float(self.intBoundingRectWidth) / float(self.intBoundingRectHeight)
-    # end constructor
+    # end construtor
 
 # end class
+
+
+
+
+
+
+
+
+
 
 
 
